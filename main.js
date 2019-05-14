@@ -1,21 +1,23 @@
-// var createSeed = require('gitium.seed.js');
-// const { originalSeed, cyptoSeed } = createSeed("kog农场@HK", "Kog.aia@392766")
-// console.log(originalSeed, cyptoSeed)
-const { app, BrowserWindow } = require('electron')
 
+const electron  = require('electron')
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
-
+const Menu = electron.Menu
 function createWindow () {
+    //Menu.setApplicationMenu(null) // 隐藏菜单
     // 创建浏览器窗口。
-    win = new BrowserWindow({ width: 800, height: 600 })
+    win = new BrowserWindow({ width: 800, height: 600,webPreferences: {
+        nodeIntegration: true
+      } })
 
     // 然后加载应用的 index.html。
-    win.loadFile('index.html')
-
+    win.loadFile('app/index.html')
+    //win.setProgressBar(0.5)
     // 打开开发者工具
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
