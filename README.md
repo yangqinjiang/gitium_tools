@@ -7,3 +7,5 @@ $ cd gitium_tools
 $ npm install
 # 运行应用
 $ npm start
+# 打包app
+$ npm run package
