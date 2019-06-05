@@ -1,0 +1,19 @@
+{
+  "name": "gitium_tools",
+  "version": "1.0.0",
+  "description": "gitium tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gitium",
+    "tools"
+  ],
+  "author": "yangqinjiang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "gitium.seed.js": "^1.0.2"
+  }
+}

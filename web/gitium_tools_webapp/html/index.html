@@ -1,0 +1,91 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="panel panel-default" style="margin: 10px">
+    <div class="panel-body">
+      <div class="form-horizontal" role="form">
+        <h2>生成gitium 的加密seed</h2>  
+        <img src="./asset/7.ico" alt="">
+
+        <div class="form-group">
+          <label for="input_name" class="col-sm-2 control-label">帐号:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_name" placeholder="请输入用户名">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input_pass" class="col-sm-2 control-label">密码:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="input_pass" placeholder="请输入密码">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-2">
+            <button id="btn_submit" class="btn btn-default">加密</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input_result" class="col-sm-2 control-label"></label>
+          <div class="col-sm-10">
+            <span id="error_tip" style="color:red;"></span>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="input_result" class="col-sm-2 control-label">结果:</label>
+            <div class="col-sm-10">
+              cyptoSeed:<textarea rows="10" class="form-control" id="cyptoSeed"></textarea>
+              <div style="display: none;" >
+              originalSeed:<textarea  class="form-control" id="originalSeed"></textarea>
+            </div>
+              <br><span>点击上面的输入框,按 ctrl+A , ctrl+C 复制到你的系统</span>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+  const btn_submit = document.getElementById("btn_submit");
+const input_name = document.getElementById("input_name");
+const input_pass = document.getElementById("input_pass");
+const cyptoSeed = document.getElementById("cyptoSeed");
+const originalSeed = document.getElementById("originalSeed");
+const error_tip = document.getElementById("error_tip");
+// 登录按钮 点击事件
+btn_submit.addEventListener('click', (e) => {
+        // 获取输入文本
+    var name = input_name.value.trim();
+    var pass = input_pass.value.trim();
+    cyptoSeed.value = '';
+    if (name == "" || pass == "") {
+        error_tip.innerHTML = '请输入账号或密码';
+        return;
+    }else{
+        error_tip.innerHTML = '';
+    }
+    
+    $.ajax({
+            type:'post',
+            url:'/api/create_seed',   //一样接口路径
+            data:{name:name,pass:pass},
+            success:function (data) {
+                console.log(data)  //这个data就是后台返回的res.write（）或者是res.send()
+                cyptoSeed.value = data.cyptoSeed
+                originalSeed.value = data.originalSeed
+            },
+            error:function (err) {
+                alert('请求出错！')
+            }
+        })
+  
+});
+
+</script>
+</body>
+</html>
