@@ -1,7 +1,9 @@
-FROM node:7.7.2-alpine
+FROM node:lts-alpine
 WORKDIR /app
 COPY package.json /app
 RUN npm install
 COPY . /app
 CMD ["node", "index.js"]
-EXPOSE 8080
+EXPOSE 3000
+#docker build -t mynodeapp .
+#docker run -d --name game -p 8080:3000 mynodeapp
