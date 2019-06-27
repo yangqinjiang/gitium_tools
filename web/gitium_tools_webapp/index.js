@@ -6,6 +6,7 @@ app.use('/html', express.static('html'))
 app.get('/', (req, res) => res.send('This is gitium tools! <a href="/html/index.html">点击这里打开</a>'));
 //生成 gitium_seed
 app.post('/api/create_seed', function (req, res) {
+  console.log(req.query.name, req.query.pass);
   var seed = createSeed.createSeed(req.query.name, req.query.pass);
   res.send(seed);
 })
